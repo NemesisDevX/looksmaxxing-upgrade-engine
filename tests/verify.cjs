@@ -42,7 +42,7 @@ function test(name){console.log("PASS "+name)}
   await page.locator('.options[data-key="focus"] button[data-value="looks"]').click();
   await page.locator('.options[data-key="budget"] button[data-value="0"]').click();
   let cards=await page.locator("#cards .card").allTextContents();
-  assert(cards.every(t=>t.includes("NEW SPEND Free")));
+  assert(cards.every(t=>/COST\s+Free/.test(t)));
   const freeNames=await page.locator("#cards h3").allTextContents();
   await page.locator('.options[data-key="budget"] button[data-value="25"]').click();
   cards=await page.locator("#cards .card").allTextContents();
