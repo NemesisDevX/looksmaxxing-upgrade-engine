@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10110f"><meta name="description" content="A practical, transparent decision engine for choosing your next self-improvement actions.">
+<meta name="theme-color" content="#10110f"><meta name="color-scheme" content="dark"><meta name="description" content="A practical, transparent decision engine for choosing your next self-improvement actions.">
 <title>The Upgrade Engine — Make your next move count</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap');
@@ -19,16 +19,18 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 <body><div class="wrap">
 <header class="nav"><div class="brand"><span class="brand-mark">U</span> The Upgrade Engine</div><div class="nav-note">Independent prototype · Not affiliated</div></header>
 <main>
-<section class="hero"><div class="eyebrow">A more useful kind of self-improvement</div><h1>Stop rating yourself.<br>Start improving.</h1><p>Skip the score. Tell us what you want to work on and what you can realistically commit—we’ll help you choose a next step that fits.</p></section>
+<section class="hero"><div class="eyebrow">A decision engine for real life <span class="hero-version">/ V2.0</span></div><h1>Stop rating yourself.<br><em>Start improving.</em></h1><p>The internet has a thousand tips. You need three that actually fit your life. Set your constraints, get a focused plan, and make progress on your terms.</p><div class="hero-proof"><span><i aria-hidden="true"></i> Real constraints</span><span><i aria-hidden="true"></i> Explained tradeoffs</span><span><i aria-hidden="true"></i> Private by design</span></div><div class="orbit" aria-hidden="true"><span>01</span><span>02</span><span>03</span></div></section>
 <section class="layout">
-<aside class="assessment" aria-label="Personalize recommendations"><div class="section-head"><h2>Your starting point</h2><span class="step">01 / 04</span></div>
+<aside class="assessment" aria-label="Personalize recommendations"><div class="section-head"><h2>Build your brief</h2><span class="step">4 INPUTS</span></div>
 <div class="field"><span class="label">01 — Focus</span><div class="options" data-key="focus"><button class="option" aria-pressed="true" data-value="looks">Looks / grooming</button><button class="option" aria-pressed="false" data-value="fitness">Fitness</button><button class="option" aria-pressed="false" data-value="style">Personal style</button><button class="option" aria-pressed="false" data-value="mindset">Mindset</button></div></div>
 <div class="field"><span class="label">02 — Time per day</span><div class="options three" data-key="time"><button class="option" aria-pressed="true" data-value="5">5 min</button><button class="option" aria-pressed="false" data-value="15">15 min</button><button class="option" aria-pressed="false" data-value="30">30 min</button></div></div>
 <div class="field"><span class="label">03 — Spend to get started</span><div class="options three" data-key="budget"><button class="option" aria-pressed="true" data-value="0">Free</button><button class="option" aria-pressed="false" data-value="25">Under $25</button><button class="option" aria-pressed="false" data-value="100">Under $100</button></div></div>
 <div class="field"><span class="label">04 — Experience</span><div class="options" data-key="level"><button class="option" aria-pressed="true" data-value="beginner">Beginner</button><button class="option" aria-pressed="false" data-value="intermediate">Intermediate</button></div></div>
-<button class="run" id="refresh">Reset this plan ↻</button><p class="privacy">Choices update instantly. Progress stays on this device.</p></aside>
-<div class="results"><div class="results-top"><div><div class="live">Your personal shortlist</div><h2>Start here</h2><p>Three practical moves, ranked for your constraints.</p></div><span class="step">LIVE RANKING</span></div><div class="cards" id="cards" aria-live="polite"></div><section class="skip"><h3>What to skip for now</h3><p id="skip-copy"></p></section>
-<section class="plan"><div class="plan-head"><div><div class="live">Small steps, repeated</div><h2>Your first 7 days</h2><p>A realistic starter plan built from your top priorities.</p></div><button class="copy" id="copy">Copy plan ↗</button></div><div class="progress"><div class="progress-top"><span>Weekly progress</span><span id="progress-label">0 / 7 complete</span></div><div class="track" id="progress-track" role="progressbar" aria-label="Weekly plan progress" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0"><div class="fill" id="fill"></div></div></div><div class="days" id="days"></div><p class="notice">Practical planning, not medical advice. Cost figures are approximate USD estimates, not offers. Adapt or stop anything causing pain or distress.</p></section>
+<button class="run" id="refresh">Reset current progress <span aria-hidden="true">↻</span></button><p class="privacy">No accounts, uploads or AI inference calls. Your plan stays local.</p></aside>
+<div class="results"><div class="results-top"><div><div class="live">Your personal shortlist</div><h2>Your next best moves</h2><p>Three choices. An honest reason behind each.</p></div><span class="step">LIVE DECISION ENGINE</span></div><div class="brief" aria-live="polite"><div class="brief-intro"><span class="eyebrow">Your decision brief</span><strong id="brief-headline">A plan that fits your real life.</strong><span id="brief-reason">Not every improvement deserves your time.</span></div><div class="brief-metrics"><div><span>TIME CAP</span><strong id="metric-time">5 min/day</strong></div><div><span>OPTIONAL SPEND</span><strong id="metric-spend">$0</strong></div><div><span>YOUR FOCUS</span><strong id="metric-focus">Grooming</strong></div></div></div>
+<div class="recommendation-toolbar"><span>Already do one of these? Replace it with the next-best fit.</span><button id="restore" class="text-button" hidden type="button">Restore skipped ↺</button></div><div class="cards" id="cards" aria-live="polite"></div>
+<details class="method"><summary>How does the engine choose? <span>View decision rules</span></summary><div class="method-body"><p><strong>Eligibility first.</strong> Actions beyond your daily time or spending cap, or incompatible with experience, are excluded.</p><p><strong>Relevance next.</strong> A direct goal match beats a general foundation. Time suitability and practicality differentiate nearby alternatives.</p><p><strong>Spending is optional.</strong> We keep at least two free foundations and include at most one paid suggestion within the chosen budget. Prices are estimates, not checkout links.</p><p>These are transparent editorial heuristics, not a diagnosis, scientific impact scores, or a live AI response.</p></div></details><section class="skip"><h3>What to skip for now <span aria-hidden="true">↗</span></h3><p id="skip-copy"></p></section>
+<section class="plan"><div class="plan-head"><div><div class="live">Small steps, repeated</div><h2>Your first 7 days</h2><p>A realistic starter plan built from your top priorities.</p></div><div class="plan-actions"><button class="copy" id="copy" type="button">Copy plan ↗</button><button class="copy secondary" id="download" type="button">Save .txt ↓</button></div></div><div class="progress"><div class="progress-top"><span>Weekly progress</span><span id="progress-label">0 / 7 complete</span></div><div class="track" id="progress-track" role="progressbar" aria-label="Weekly plan progress" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0"><div class="fill" id="fill"></div></div></div><div class="days" id="days"></div><div class="plan-note">✳ You can come back later. Progress is saved on this device.</div><p class="notice">Practical planning, not medical advice. Cost figures are approximate USD estimates, not offers. Adapt or stop anything causing pain or distress.</p></section>
 </div></section></main>
 <footer class="footer"><span>THE UPGRADE ENGINE · INDEPENDENT PROTOTYPE</span><span>Research starting points: <a href="https://looksmaxxing.guide/en/looks/looksmaxxing-for-beginners/" target="_blank" rel="noopener">Looksmaxxing for beginners</a> · <a href="https://looksmaxxing.guide/en/style/mens-grooming-style-guide/" target="_blank" rel="noopener">Grooming guide</a> · <a href="https://looksmaxxing.guide/en/style/capsule-wardrobe-men/" target="_blank" rel="noopener">Capsule wardrobe</a> · <a href="https://looksmaxxing.guide/en/fitness/beginner-strength-program/" target="_blank" rel="noopener">Strength program</a> · <a href="https://looksmaxxing.guide/en/fitness/sleep-optimization-guide/" target="_blank" rel="noopener">Sleep guide</a></span></footer>
 </div>
@@ -38,7 +40,8 @@ looks:{title:"Looksmaxxing for beginners",url:"https://looksmaxxing.guide/en/loo
 groom:{title:"Men’s grooming & style guide",url:"https://looksmaxxing.guide/en/style/mens-grooming-style-guide/"},
 wardrobe:{title:"Capsule wardrobe for men",url:"https://looksmaxxing.guide/en/style/capsule-wardrobe-men/"},
 strength:{title:"Beginner strength program",url:"https://looksmaxxing.guide/en/fitness/beginner-strength-program/"},
-sleep:{title:"Sleep optimization guide",url:"https://looksmaxxing.guide/en/fitness/sleep-optimization-guide/"}};
+sleep:{title:"Sleep optimization guide",url:"https://looksmaxxing.guide/en/fitness/sleep-optimization-guide/"},
+morning:{title:"A realistic morning routine",url:"https://looksmaxxing.guide/en/mindset/morning-routine-discipline/"}};
 const actions=[
 {id:"routine",name:"Make grooming automatic",focus:["looks","style"],mins:5,cost:0,level:["beginner","intermediate"],description:"Choose a simple morning and evening routine you can repeat: cleanse gently, moisturize, and keep facial hair or hair neatly maintained.",source:"groom",keywords:["consistency","routine"]},
 {id:"fit",name:"Build a strength habit",focus:["fitness","looks"],mins:15,cost:0,level:["beginner","intermediate"],description:"Start with a beginner-friendly full-body session using movements you can do safely. Prioritize learning form and making the schedule repeatable.",source:"strength",keywords:["strength","movement"]},
@@ -47,17 +50,17 @@ const actions=[
 {id:"skin",name:"Keep skincare simple",focus:["looks"],mins:5,cost:0,level:["beginner","intermediate"],description:"Avoid adding several products at once. Start with a gentle cleanser and moisturizer you already own; introduce changes gradually.",source:"looks",keywords:["simple","consistency"]},
 {id:"walk",name:"Add an easy movement break",focus:["fitness","mindset"],mins:15,cost:0,level:["beginner","intermediate"],description:"Take a comfortable walk or movement break that fits your day. Keep the pace easy enough to sustain.",source:"strength",keywords:["movement","accessibility"]},
 {id:"closet",name:"Build a three-outfit rotation",focus:["style","looks"],mins:30,cost:0,level:["beginner","intermediate"],description:"Combine pieces you own into three comfortable outfits for typical days. Photograph combinations to make getting dressed easier.",source:"wardrobe",keywords:["versatility","practicality"]},
-{id:"journal",name:"Set one weekly intention",focus:["mindset"],mins:5,cost:0,level:["beginner","intermediate"],description:"Write one specific, achievable action for the week and when you’ll do it. Review it briefly at the end of the week.",source:"looks",keywords:["planning","consistency"]},
+{id:"journal",name:"Set one weekly intention",focus:["mindset"],mins:5,cost:0,level:["beginner","intermediate"],description:"Write one specific, achievable action for the week and when you’ll do it. Review it briefly at the end of the week.",source:"morning",keywords:["planning","consistency"]},
 
 {id:"microfit",name:"Do a five-minute movement reset",focus:["fitness","mindset"],mins:5,cost:0,level:["beginner","intermediate"],priority:1,description:"Choose a gentle warm-up, stretch, or movement break. Start comfortably and stop if anything hurts.",source:"strength"},
 {id:"walk5",name:"Choose a five-minute walking slot",focus:["fitness"],mins:5,cost:0,level:["beginner","intermediate"],description:"Pick a reliable time for a short, comfortable walk. Use this as a starting habit, not a substitute for a full workout.",source:"strength"},
 {id:"outfit5",name:"Create a no-shopping outfit formula",focus:["style"],mins:5,cost:0,level:["beginner","intermediate"],priority:1,description:"Pick one top, one bottom, and one pair of shoes you already own that fit well together.",source:"wardrobe"},
 {id:"closet5",name:"Find your most versatile item",focus:["style"],mins:5,cost:0,level:["beginner","intermediate"],description:"Choose the item you wear most and identify two outfits it works with before buying more.",source:"wardrobe"},
-{id:"reset5",name:"Make a calm five-minute reset",focus:["mindset"],mins:5,cost:0,level:["beginner","intermediate"],priority:1,description:"Put your phone away for five minutes and write down the next achievable action you control.",source:"sleep"},
+{id:"reset5",name:"Make a calm five-minute reset",focus:["mindset"],mins:5,cost:0,level:["beginner","intermediate"],priority:1,description:"Put your phone away for five minutes and write down the next achievable action you control.",source:"morning"},
 {id:"audit5",name:"Audit one routine bottleneck",focus:["looks"],mins:5,cost:0,level:["intermediate"],priority:2,description:"Identify a grooming step you consistently skip; reduce friction rather than adding more products.",source:"groom"},
 {id:"fit5",name:"Refine one existing movement habit",focus:["fitness"],mins:5,cost:0,level:["intermediate"],priority:2,description:"Review your current schedule and find one small, repeatable change. Do not increase intensity just for a score.",source:"strength"},
 {id:"style5",name:"Refine the fit of one outfit",focus:["style"],mins:5,cost:0,level:["intermediate"],priority:2,description:"Check shoulder fit and comfort in an outfit you wear regularly; note one simple adjustment.",source:"wardrobe"},
-{id:"mind5",name:"Review one distraction trigger",focus:["mindset"],mins:5,cost:0,level:["intermediate"],priority:2,description:"Identify one habit that derails your evenings and choose a friction-reducing change.",source:"sleep"},
+{id:"mind5",name:"Review one distraction trigger",focus:["mindset"],mins:5,cost:0,level:["intermediate"],priority:2,description:"Identify one habit that derails your evenings and choose a friction-reducing change.",source:"morning"},
 {id:"spf",name:"Check your daily SPF basics",focus:["looks"],mins:5,cost:20,level:["beginner","intermediate"],priority:1,description:"If you lack daily sun protection, compare a basic SPF 30+ option. If you already have one, keep using it; shopping is optional.",source:"looks"},
 {id:"skin-kit",name:"Fill an actual skincare gap",focus:["looks"],mins:5,cost:45,level:["beginner","intermediate"],priority:2,description:"Take stock of cleanser, moisturizer and SPF before considering a modest basics kit. Buy only what you are missing.",source:"groom"},
 {id:"sleepmask",name:"Consider a low-cost sleep mask",focus:["mindset","fitness"],mins:5,cost:15,level:["beginner","intermediate"],priority:1,description:"If light genuinely disrupts your sleep, compare a simple mask. Skip it when your current sleep setup works.",source:"sleep"},
@@ -66,13 +69,32 @@ const actions=[
 {id:"review",name:"Review and adjust your routine",focus:["looks","fitness","style","mindset"],mins:15,cost:0,level:["intermediate"],description:"Look back at the last week: keep actions that fit your life, simplify those you missed, and choose just one adjustment.",source:"looks",keywords:["reflection","sustainability"]}
 ];
 const state={focus:"looks",time:5,budget:0,level:"beginner"};
+const focusLabels={looks:"Grooming",fitness:"Fitness",style:"Personal style",mindset:"Mindset"};
+const profileKey=()=>"upgrade-engine-excluded-v1:"+[state.focus,state.time,state.budget,state.level].join(":");
+function loadExclusions(){try{const v=JSON.parse(localStorage.getItem(profileKey())||"[]");return new Set(Array.isArray(v)?v:[])}catch{return new Set()}}
+let excluded=loadExclusions();
+function persistExclusions(){try{localStorage.setItem(profileKey(),JSON.stringify([...excluded]))}catch{}}
+function switchProfile(){excluded=loadExclusions();render()}
+function updateSnapshot(top){
+ const spend=top.reduce((sum,a)=>sum+a.cost,0);
+ document.querySelector("#metric-focus").textContent=focusLabels[state.focus];
+ document.querySelector("#metric-time").textContent=state.time+" min/day";
+ document.querySelector("#metric-spend").textContent=spend===0?"$0":"~$"+spend;
+ document.querySelector("#brief-headline").textContent="Small actions. Real constraints. "+focusLabels[state.focus]+".";
+ document.querySelector("#brief-reason").textContent=top.length>=3?"Three priorities matched to your time, budget and experience.":"Restore skipped actions for the full shortlist.";
+ document.querySelector("#restore").hidden=excluded.size===0;
+}
 
 const rank=(a)=>{
  if(a.mins>Number(state.time)||a.cost>Number(state.budget)||!a.level.includes(state.level))return null;
  let score=0,why=[];
  if(a.focus.includes(state.focus)){score+=10;why.push("matches your "+state.focus+" goal")}
  else{score+=1;why.push("supports a useful foundation")}
- score+=4;why.push("fits your "+state.time+"-minute daily window");
+ score+=4;
+ const timeBonus=Math.round(3*a.mins/Number(state.time));
+ score+=timeBonus;
+ why.push(a.mins+"-minute action within your "+state.time+"-minute cap");
+ if(state.level==="intermediate"&&a.level.length===1){score+=2;why.push("matched to your experience")}
  score+=3;
  if(a.cost===0){why.push("no new spending required")}
  else{score+=1;why.push("optional and within your spending limit")}
@@ -80,14 +102,14 @@ const rank=(a)=>{
  return {...a,score,why:why.slice(0,3)};
 };
 function selected(){
- const pool=actions.map(rank).filter(Boolean).sort((a,b)=>b.score-a.score||a.mins-b.mins||a.name.localeCompare(b.name));
+ const pool=actions.filter(a=>!excluded.has(a.id)).map(rank).filter(Boolean).sort((a,b)=>b.score-a.score||a.mins-b.mins||a.name.localeCompare(b.name));
  const free=pool.filter(a=>a.cost===0).slice(0,3);
  const optional=pool.find(a=>a.cost>0 && a.focus.includes(state.focus));
  // Intentional product tradeoff: two free foundations and at most one optional paid action.
  if(Number(state.budget)>0 && optional && free.length>=3)free[2]=optional;
  return (free.length===3?free:pool.slice(0,3)).sort((a,b)=>b.score-a.score||a.mins-b.mins||a.name.localeCompare(b.name));
 }
-function render(){const top=selected();document.querySelector("#cards").innerHTML=top.map((a,i)=>`<article class="card"><div class="card-top"><div><span class="rank">0${i+1}</span><h3>${a.name}</h3></div><span class="category">${a.focus.map(x=>x==="looks"?"Looks":x[0].toUpperCase()+x.slice(1)).join(" · ")}</span></div><p>${a.description}</p><div class="why"><span class="reason-label">Why this</span>${a.why.join(" · ")}</div><div class="meta-row"><span class="meta">TIME <b>${a.mins} min</b></span><span class="meta">COST <b>${a.cost===0?"Free":"Est. ~$"+a.cost}</b></span><span class="meta">READ <b><a href="${sources[a.source].url}" target="_blank" rel="noopener">${sources[a.source].title} ↗</a></b></span></div></article>`).join("");document.querySelector("#skip-copy").textContent="Start with the two free fundamentals first. A paid recommendation appears only when your budget allows it, and purchasing is never required. Time-consuming or out-of-budget steps are excluded. Prices are rough USD planning estimates, not live offers.";renderPlan(top)}
+function render(){const top=selected();updateSnapshot(top);document.querySelector("#cards").innerHTML=top.map((a,i)=>`<article class="card"><div class="card-top"><div><span class="rank">0${i+1}</span><h3>${a.name}</h3></div><span class="category">${a.focus.map(x=>x==="looks"?"Looks":x[0].toUpperCase()+x.slice(1)).join(" · ")}</span></div><p>${a.description}</p><div class="why"><span class="reason-label">Why this</span>${a.why.join(" · ")}</div><div class="meta-row"><span class="meta">TIME <b>${a.mins} min</b></span><span class="meta">COST <b>${a.cost===0?"Free":"Est. ~$"+a.cost}</b></span><span class="meta">READ <b><a href="${sources[a.source].url}" target="_blank" rel="noopener">${sources[a.source].title} ↗</a></b></span></div><div class="card-foot"><span>Useful action, not a beauty rating</span><button type="button" class="replace-action" data-skip="${a.id}" aria-label="Replace ${a.name} with the next best recommendation">Already doing this? ↗</button></div></article>`).join("");document.querySelector("#skip-copy").textContent="Skip miracle products, drastic changes, and buying a whole routine at once. Actions over your "+state.time+"-minute time cap and $"+state.budget+" starting budget are filtered out. Prioritize small steps you can repeat.";renderPlan(top)}
 
 const steps={
  routine:["Choose a simple grooming routine you can actually repeat.","Test the same routine again; remove any unnecessary steps."],
@@ -126,6 +148,7 @@ function readProgress(key){try{const value=JSON.parse(localStorage.getItem(key)|
 function saveProgress(key,values){fallbackProgress[key]=values;try{localStorage.setItem(key,JSON.stringify(values))}catch{}}
 function clearProgress(key){delete fallbackProgress[key];try{localStorage.removeItem(key)}catch{}}
 function renderPlan(top){
+ if(top.length<3){document.querySelector("#days").textContent="Restore skipped actions to build your full seven-day plan.";document.querySelector("#progress-label").textContent="No plan yet";document.querySelector("#fill").style.width="0%";document.querySelector("#progress-track").setAttribute("aria-valuenow","0");return}
  const tasks=buildPlan(top),key=planKey(top),old=readProgress(key);
  document.querySelector("#days").innerHTML=tasks.map((task,i)=>'<div class="day"><div class="day-name">Day '+(i+1)+'</div><label class="task"><input type="checkbox" data-day="'+i+'" '+(old[i]?'checked':'')+'><span>'+task.text+'</span></label></div>').join("");
  document.querySelectorAll("#days input").forEach(el=>el.addEventListener("change",()=>{
@@ -135,8 +158,21 @@ function renderPlan(top){
  updateProgress();
 }
 function updateProgress(){let n=[...document.querySelectorAll("#days input")].filter(x=>x.checked).length;document.querySelector("#progress-label").textContent=`${n} / 7 complete`;document.querySelector("#fill").style.width=`${n/7*100}%`;document.querySelector("#progress-track").setAttribute("aria-valuenow",String(n))}
-document.querySelectorAll(".options").forEach(group=>group.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;group.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));state[group.dataset.key]=b.dataset.value;render()}));
-document.querySelector("#refresh").addEventListener("click",()=>{const top=selected();if(!confirm("Reset completion for this exact plan?"))return;clearProgress(planKey(top));render()});
-document.querySelector("#copy").addEventListener("click",async()=>{const lines=["My first 7 days — The Upgrade Engine",...([...document.querySelectorAll("#days .day")].map((d,i)=>`${d.querySelector(".day-name").textContent}: [${d.querySelector("input").checked?"x":" "}] ${d.querySelector("span").textContent}`))];const b=document.querySelector("#copy");try{await navigator.clipboard.writeText(lines.join("\n"));b.textContent="Copied ✓";setTimeout(()=>b.textContent="Copy plan ↗",1600)}catch{b.textContent="Clipboard unavailable";setTimeout(()=>b.textContent="Copy plan ↗",1600)}});
+document.querySelectorAll(".options").forEach(group=>group.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;group.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));state[group.dataset.key]=b.dataset.value;switchProfile()}));
+document.querySelector("#refresh").addEventListener("click",()=>{const top=selected();if(top.length<3)return;clearProgress(planKey(top));render();showToast("Progress reset for this plan")});
+document.querySelector("#cards").addEventListener("click",e=>{const btn=e.target.closest("[data-skip]");if(!btn)return;const pool=actions.filter(a=>!excluded.has(a.id)).map(rank).filter(Boolean);if(pool.length<=3){showToast("All eligible actions are already shown");return}excluded.add(btn.dataset.skip);persistExclusions();render();showToast("Already covered. Next best option selected.")});
+document.querySelector("#restore").addEventListener("click",()=>{excluded.clear();persistExclusions();render();showToast("Full shortlist restored")});
+const toast=document.createElement("div");toast.id="toast";toast.className="toast";toast.setAttribute("role","status");toast.setAttribute("aria-live","polite");document.body.append(toast);
+let toastTimer;
+function showToast(message){toast.textContent=message;toast.classList.add("visible");clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove("visible"),2600)}
+function planText(){const top=selected();return ["THE UPGRADE ENGINE — MY 7-DAY PLAN",
+"Focus: "+focusLabels[state.focus]+" | Time cap: "+state.time+" min/day | Budget: $"+state.budget+" | Experience: "+state.level,
+"","MY TOP PRIORITIES",...top.map((a,i)=>(i+1)+". "+a.name+" ("+a.mins+" min, "+(a.cost===0?"free":"estimated $"+a.cost)+")"),"",
+"SEVEN SMALL ACTIONS",...([...document.querySelectorAll("#days .day")].map((d,i)=>"Day "+(i+1)+": ["+(d.querySelector("input").checked?"x":" ")+"] "+d.querySelector(".task span").textContent)),
+"","GUIDES",...new Set(top.map(a=>sources[a.source].url)),"",
+"Planning tool, not medical advice. Costs are estimates. Progress stays on this device."].join("\n")}
+document.querySelector("#download").addEventListener("click",()=>{const blob=new Blob([planText()],{type:"text/plain;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="my-upgrade-plan.txt";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);showToast("Plan saved as a text file")});
+document.querySelector("#copy").addEventListener("click",async()=>{const b=document.querySelector("#copy");try{const value=planText();if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(value)}else{const t=document.createElement("textarea");t.value=value;t.style.position="fixed";t.style.opacity="0";document.body.append(t);t.select();const ok=document.execCommand("copy");t.remove();if(!ok)throw Error("Copy not supported")}b.textContent="Copied ✓";showToast("Your plan is on the clipboard")}catch{b.textContent="Copy unavailable";showToast("Use Save .txt instead")}setTimeout(()=>b.textContent="Copy plan ↗",1900)});
+
 render();
 </script></body></html>
