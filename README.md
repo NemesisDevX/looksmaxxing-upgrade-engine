@@ -8,9 +8,9 @@ People seeking self-improvement are better served by a small number of feasible 
 
 ## Recommendation method
 
-The browser runs a deterministic weighted ranking over a small curated set of actions. Matching the selected focus contributes 8 points (a general foundation contributes 1); fitting the time budget adds 4 (otherwise a time overrun is penalized by 2 points per 5 minutes); fitting the spend ceiling adds 3 (otherwise subtracts 4); and matching experience adds 3. Ties resolve by shorter duration, then name. The top three are displayed with plain-language matching reasons, estimated time, cost category, and a relevant reading link. This is a transparent heuristic—not a scientific measure, impact estimate, or AI score. Equal weights and a small starter dataset are tradeoffs; recommendations are not clinical or universally optimal.
+The browser runs a deterministic weighted ranking over a curated action set. Actions exceeding the selected time or budget or incompatible with the selected experience are excluded. Matching the focus contributes 10 points (a general foundation contributes 1), fitting the time window contributes 4, staying in budget contributes 3, compatible experience contributes 3, and an editorial priority modifier rewards practical starting steps. Ties resolve by shorter duration then name. To avoid turning the experience into a shopping funnel, the shortlist retains at least two free foundations and includes at most one optional paid suggestion when the budget allows. Prices are rough USD estimates, not current offers. The scores are ranking heuristics—not scientific impact estimates or AI scores.
 
-The seven-day plan cycles the top three suggestions across days, stores completion checkboxes in localStorage, and can be copied as text. Re-running the assessment recalculates both recommendations and tasks; checklist completion remains local.
+The seven-day plan has distinct first and follow-up actions for each of the top three recommendations, plus a day-seven review. Completion is stored in localStorage under a key containing the exact assessment choices and recommended action IDs, preventing completed tasks from carrying over when the user changes plans. The reset button clears the current plan only. Re-running the assessment recalculates recommendations and tasks; copying exports the visible checklist.
 
 ## Why deterministic, not a live LLM
 
@@ -32,7 +32,7 @@ They are linked in the interface. A direct HEAD check from the build environment
 
 Open `index.html` directly or serve this folder with any static web server. No build step or dependencies are required.
 
-Manual verification: see the final assessment report for checks actually run. Known limitations: small hand-authored dataset, no personalization beyond four inputs, local-only progress, and source hosts may block automated access.
+Verification: initial developer checks included `node --check`, the GitHub Pages deployment workflow, and an anonymous HTTP 200 response. Independent post-launch review also parsed the updated inline JavaScript successfully and exercised ranking for five different focus/time/budget/experience combinations: looks/5/free, looks/5/$25, fitness/5/free, style/15/$100, mindset/30/$25. Browser end-to-end interaction testing has **not** been completed; do not represent it as completed. Known limitations: small hand-authored dataset, no personalization beyond four inputs, local-only progress, and source hosts may block automated access.
 
 ## Prompt used
 
@@ -63,3 +63,7 @@ No separate runtime AI prompt or inference prompt was used: the application is d
 ## Live demo
 
 https://NemesisDevX.github.io/looksmaxxing-upgrade-engine/
+
+## Iteration after independent review
+
+An independent code review identified two concrete bugs in the first public version: all actions had zero cost, so the budget control could not change the shortlist; and checklist state used one global key, so completion leaked between different plans. The second commit added optional, explicitly priced actions, hard budget/time gates, per-plan persistence keys, varied seven-day tasks, reduced-motion styles, and progress accessibility semantics. These are engineering tradeoffs under time pressure, not claims of clinical efficacy or model-powered inference.
