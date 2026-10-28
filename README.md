@@ -40,4 +40,4 @@ The complete original user instruction was used to define the product. In brief,
 
 ## Live demo
 
-GitHub Pages URL will be recorded here after publication.
+https://NemesisDevX.github.io/looksmaxxing-upgrade-engine/
