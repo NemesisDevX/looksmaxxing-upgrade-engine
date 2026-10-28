@@ -112,6 +112,34 @@ function test(name){console.log("PASS "+name)}
   assert.equal(await page.locator("#cards article.card").count(),3);
   test("Desktop and narrow mobile layouts render without horizontal overflow");
 
+
+  // Exhaustive constraint matrix: 4 focuses x 3 times x 3 budgets x 2 levels.
+  const matrix=await page.evaluate(()=>{
+    const saved={...state};
+    const issues=[];
+    let evaluated=0;
+    for(const focus of ["looks","fitness","style","mindset"])
+    for(const time of [5,15,30])
+    for(const budget of [0,25,100])
+    for(const level of ["beginner","intermediate"]){
+      Object.assign(state,{focus,time,budget,level});
+      const result=selected();
+      evaluated++;
+      if(result.length!==3)issues.push(focus+"/"+time+"/"+budget+"/"+level+": expected 3, got "+result.length);
+      if(new Set(result.map(x=>x.id)).size!==result.length)issues.push("duplicate recommendation");
+      if(result.some(x=>x.mins>time||x.cost>budget||!x.level.includes(level)))issues.push("constraint violation: "+focus+"/"+time+"/"+budget+"/"+level);
+      if(!result.some(x=>x.focus.includes(focus)))issues.push("no focus-specific action: "+focus+"/"+time+"/"+budget+"/"+level);
+      if(result.filter(x=>x.cost>0).length>1)issues.push("more than one paid action");
+      if(result.some(x=>!sources[x.source]||!/^https:\/\/looksmaxxing\.guide\//.test(sources[x.source].url)))issues.push("invalid source mapping");
+    }
+    Object.assign(state,saved);
+    render();
+    return {evaluated,issues};
+  });
+  assert.equal(matrix.evaluated,72);
+  assert.deepEqual(matrix.issues,[]);
+  test("All 72 assessment configurations satisfy ranking, budget, time and source invariants");
+
   assert.deepEqual(errors,[]);
   test("No uncaught browser JavaScript errors");
   console.log("\nALL BROWSER CHECKS PASSED");
