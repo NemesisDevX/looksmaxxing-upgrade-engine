@@ -16,7 +16,7 @@ function test(name){console.log("PASS "+name)}
  await new Promise(resolve=>server.listen(0,"127.0.0.1",resolve));
  const url="http://127.0.0.1:"+server.address().port+"/";
  const browser=await chromium.launch({headless:true});
- const context=await browser.newContext({viewport:{width:1366,height:850},acceptDownloads:true,permissions:["clipboard-read","clipboard-write"]});
+ const context=await browser.newContext({viewport:{width:1366,height:850},acceptDownloads:true,reducedMotion:"reduce",permissions:["clipboard-read","clipboard-write"]});
  const page=await context.newPage();
  const errors=[];
  page.on("pageerror",err=>errors.push(err.message));
@@ -100,9 +100,13 @@ function test(name){console.log("PASS "+name)}
   test("Guide links and transparent ranking explanation are accessible");
 
   await fs.promises.mkdir(path.join(__dirname,"..","screenshots"),{recursive:true});
+  await page.evaluate(()=>{window.scrollTo({top:0,behavior:"instant"});document.querySelector("#toast")?.classList.remove("visible")});
+  await page.waitForTimeout(120);
   await page.screenshot({path:path.join(__dirname,"..","screenshots","desktop.png"),fullPage:true});
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth <= window.innerWidth+1),true);
   await page.setViewportSize({width:390,height:844});
+  await page.evaluate(()=>{window.scrollTo({top:0,behavior:"instant"});document.querySelector("#toast")?.classList.remove("visible")});
+  await page.waitForTimeout(120);
   await page.screenshot({path:path.join(__dirname,"..","screenshots","mobile.png"),fullPage:true});
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth <= window.innerWidth+1),true);
   assert.equal(await page.locator("#cards article.card").count(),3);
